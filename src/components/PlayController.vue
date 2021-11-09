@@ -35,7 +35,7 @@
       ref="audio"
       :src="`https://music.163.com/song/media/outer/url?id=${currentMusic.id}.mp3`"
     ></audio>
-    <play-music v-show="showPlayMusic" />
+    <play-music v-show="showPlayMusic" @play="play" @pause="pause" />
   </div>
 </template>
 
@@ -56,7 +56,7 @@ export default {
     PlayMusic,
   },
   computed: {
-    ...mapState(["isPlaying", "showPlayMusic"]),
+    ...mapState(["isPlaying", "showPlayMusic", "intvalID"]),
     ...mapGetters(["currentMusic"]),
   },
   mounted() {
@@ -78,19 +78,27 @@ export default {
       if (!this.$refs.audio.paused) {
         this.$refs.audio.pause();
         this.$store.commit("switchPlayPause");
-        console.log(1);
+        // console.log(1);
 
-        console.log(this.isPlaying);
+        // console.log(this.isPlaying);
+        // 暂停时清除定时器
+        clearInterval(this.intvalID);
       }
     },
     play() {
       if (this.$refs.audio.paused) {
         this.$refs.audio.play();
         this.$store.commit("switchPlayPause");
-        console.log(2);
-        console.log(this.isPlaying);
-        console.log(this.$refs.audio);
-        console.log(this.$refs.audio.paused);
+        // 设置定时器不断更新歌曲播放的当前时间
+        let id = setInterval(() => {
+          this.$store.commit("setCurrentTime", this.$refs.audio.currentTime);
+          // console.log(this.$store.state.currentTime);
+        }, 500);
+        this.$store.commit("setIntervalID", id);
+        // console.log(2);
+        // console.log(this.isPlaying);
+        // console.log(this.$refs.audio);
+        // console.log(this.$refs.audio.paused);
       }
       // else {
       //   this.$refs.audio.pause();
@@ -99,15 +107,15 @@ export default {
       // }
     },
     switchPlayPause() {
-      console.log(this.$refs.audio);
+      // console.log(this.$refs.audio);
       if (this.$refs.audio.paused) {
         this.$refs.audio.play();
         this.$store.commit("switchPlayPause");
-        console.log("播放");
+        // console.log("播放");
       } else {
         this.$refs.audio.pause();
         this.$store.commit("switchPlayPause");
-        console.log("暂停");
+        // console.log("暂停");
       }
     },
     switchShowPlayMusic() {

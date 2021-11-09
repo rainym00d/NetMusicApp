@@ -9,19 +9,18 @@
 ## 效果
 
 <img src="image/首页.png" alt="首页" style="zoom: 50%;" />
-
-
-
 <img src="image/歌单.png" alt="歌单" style="zoom: 50%;" />
-
-<img src="image/播放页.png" alt="播放页" style="zoom: 50%;" />
+<img src="image/播放页.png" alt="播放页1" style="zoom: 50%;" />
+<img src="image/播放页.png" alt="播放页2" style="zoom: 50%;" />
 
 ## TODO
 
--   [ ] 完善播放页面
+-   [x] 完善播放页面
 -   [ ] 完善首页下部的推荐歌单部分
 -   [ ] 完善歌单中的异步惰性加载歌曲列表
 -   [ ] 完善跑马灯标题的效果
+-   [ ] 修改播放页获取歌词的时间点
+-   [ ] 增加播放页的进度条
 -   [ ] more
 
 ## Project setup
